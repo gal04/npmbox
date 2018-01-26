@@ -4,7 +4,7 @@
 // Creates an archive "box" of one or more npm packages and their dependencies.
 
 "use strict";
-
+console.log("hi -npmbox");
 var boxxer = require("./npmboxxer.js");
 
 var argv = require("optimist")
@@ -55,10 +55,19 @@ var complete = function(err) {
 };
 
 sources = sources.filter(function(source){
+	console.log("source filter");
+	console.log(source);
 	return !!source;
 });
 if (sources && sources.length>0) {
-	if (!options.silent) console.log("\nBoxing "+sources.join(", ")+"...");
+	if (!options.silent) 
+		console.log("\nBoxing "+sources.join(", ")+"...");
+	console.log("npmbox file -- boxing start");
+	console.log(sources);	
+	console.log(options);	
 	boxxer.box(sources,options,complete);
+
+	console.log("npmbox file -- boxing end");
+	console.log("npmbox file -- boxing end complete = " + complete);
 }
 else complete();

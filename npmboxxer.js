@@ -4,7 +4,7 @@
 // Shared code for npmbox/npmunbox
 
 "use strict";
-
+console.log("hi -npmboxxer");
 (function(){
 	var npm = require("npm");
 	var fs = require("fs");
@@ -55,6 +55,10 @@
 	// joins the key and value with an `@`. When the value is fully specified,
 	// this just returns the value.
 	var fixDependency = function(key,value) {
+		console.log("npmboxxer -- fixDependency start");
+		console.log(key);
+		console.log(value);
+		console.log("npmboxxer -- fixDependency end");
 		var parsed = npa(value); // We use npm's own mechanism to decide.
 		if (parsed.name===null) return key+"@"+value;
 		else return value;
@@ -63,12 +67,20 @@
 	// Given a dependency map (e.g. from a `package.json` file), return a list
 	// of the full dependency names. Returns an empty list if given `null`.
 	var listDependencies = function(depMap) {
+		console.log("npmboxxer -- listDependencies start");
+		
+		
 		var result = [];
+		console.log(depMap);
 		var keys = Object.keys(depMap||{});
+		console.log(keys);
 		for (var i = 0; i<keys.length; i++) {
 			var k = keys[i];
 			result.push(fixDependency(k,depMap[k]));
 		}
+		
+		console.log(result);
+		console.log("npmboxxer -- listDependencies end");
 		return result;
 	};
 
@@ -133,6 +145,10 @@
 	};
 
 	var npmDependencies = function(packageName,options,callback) {
+		console.log("npmboxxer -- npmDependencies start");
+		console.log(packageName);
+		console.log(callback);
+		
 		if (!packageName) return callback(null);
 
 		var checked = {};
@@ -149,6 +165,7 @@
 			deps = deps.sort();
 
 			callback(null,deps);
+
 		};
 
 		var lookupPackageDependencies = function(packageInfo) {
@@ -219,6 +236,7 @@
 		};
 
 		lookup(packageName);
+		console.log("npmboxxer -- npmDependencies end");
 	};
 
 	var npmDownload = function(packageNames,options,callback) {
@@ -278,7 +296,9 @@
 		};
 
 		var pack = function() {
-			if (!options.silent) console.log("  Packing "+target+"...");
+
+			if (!options.silent) 
+				console.log("  Packing "+target+"...");
 
 			tarCreate(cache,target,function(err){
 				if (err) return done(err);

@@ -4,7 +4,9 @@
 // Creates an archive "box" of one or more npm packages and their dependencies.
 
 "use strict";
-console.log("hi -npmbox");
+console.log("hi 1 -npmbox");
+debugger;
+console.log("hi 2 -npmbox");
 var boxxer = require("./npmboxxer.js");
 
 var argv = require("optimist")
